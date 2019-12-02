@@ -1,0 +1,24 @@
+g++ -c -Wall -g -O0 -std=c++0x -Wunused-variable kr.cc
+kr.cc: In function ‘void transaction(int, int)’:
+kr.cc:74:21: error: ‘OPERATION {aka struct _OPERATION}’ has no member named ‘tx’
+     if (target[wid].tx[tid].op[oid].type == WRITE) {
+                     ^~
+kr.cc:102:12: error: expected ‘;’ before ‘me’
+   DoneXact me;
+            ^~
+kr.cc:102:14: warning: statement has no effect [-Wunused-value]
+   DoneXact me;
+              ^
+kr.cc:103:3: error: ‘me’ was not declared in this scope
+   me.nwrite = nwrite;
+   ^~
+kr.cc: In function ‘void* worker(void*)’:
+kr.cc:116:7: warning: unused variable ‘target’ [-Wunused-variable]
+   int target[MAX_OPERATION];
+       ^~~~~~
+kr.cc: In function ‘void init_mutex()’:
+kr.cc:135:33: error: ‘union pthread_mutex_t’ has no member named ‘mutex’
+   pthread_mutex_init(&GiantLock.mutex, NULL);
+                                 ^~~~~
+Makefile:22: ターゲット 'kr.o' のレシピで失敗しました
+make: *** [kr.o] エラー 1

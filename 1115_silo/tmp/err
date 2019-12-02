@@ -1,0 +1,228 @@
+g++ -o silo silo.cc lib.cc -lpthread -lcurses -lreadline
+In file included from /usr/include/c++/5/future:35:0,
+                 from silo.cc:3:
+/usr/include/c++/5/bits/c++0x_warning.h:32:2: error: #error This file requires compiler and library support for the ISO C++ 2011 standard. This support must be enabled with the -std=c++11 or -std=gnu++11 compiler options.
+ #error This file requires compiler and library support \
+  ^
+In file included from silo.cc:1:0:
+concurrency.h:26:3: error: ‘uint64_t’ does not name a type
+   uint64_t obj;
+   ^
+concurrency.h:31:4: error: ‘uint64_t’ does not name a type
+    uint64_t tid:29;
+    ^
+concurrency.h:32:4: error: ‘uint64_t’ does not name a type
+    uint64_t epoch:32;
+    ^
+concurrency.h: In constructor ‘TidWord::TidWord()’:
+concurrency.h:37:3: error: ‘obj’ was not declared in this scope
+   obj = 0;
+   ^
+concurrency.h: In member function ‘bool TidWord::operator==(const TidWord&) const’:
+concurrency.h:41:10: error: ‘obj’ was not declared in this scope
+   return obj == right.obj;
+          ^
+concurrency.h:41:23: error: ‘const class TidWord’ has no member named ‘obj’
+   return obj == right.obj;
+                       ^
+concurrency.h: In member function ‘bool TidWord::operator<(const TidWord&) const’:
+concurrency.h:49:16: error: ‘const class TidWord’ has no member named ‘obj’
+   return this->obj < right.obj;
+                ^
+concurrency.h:49:28: error: ‘const class TidWord’ has no member named ‘obj’
+   return this->obj < right.obj;
+                            ^
+concurrency.h: At global scope:
+concurrency.h:79:3: error: ‘uint64_t’ does not name a type
+   uint64_t tidw; // tidword
+   ^
+concurrency.h:86:3: error: ‘uint64_t’ does not name a type
+   uint64_t epoch;
+   ^
+silo.cc:19:6: error: ‘atomic’ in namespace ‘std’ does not name a template type
+ std::atomic<unsigned int> Running;
+      ^
+silo.cc: In function ‘ROW_SILO* searchWriteSet(unsigned int, std::vector<ROW_SILO>)’:
+silo.cc:52:12: error: ‘itr’ does not name a type
+  for (auto itr = writeSet.begin(); itr != writeSet.end(); ++itr) {
+            ^
+silo.cc:52:36: error: expected ‘;’ before ‘itr’
+  for (auto itr = writeSet.begin(); itr != writeSet.end(); ++itr) {
+                                    ^
+silo.cc:52:36: error: ‘itr’ was not declared in this scope
+silo.cc:56:9: error: ‘nullptr’ was not declared in this scope
+  return nullptr;
+         ^
+silo.cc: In function ‘void unlockWriteSet(std::vector<ROW_SILO>)’:
+silo.cc:63:12: error: ‘itr’ does not name a type
+  for (auto itr = lockList.begin(); itr != lockList.end(); ++itr) {
+            ^
+silo.cc:63:36: error: expected ‘;’ before ‘itr’
+  for (auto itr = lockList.begin(); itr != lockList.end(); ++itr) {
+                                    ^
+silo.cc:63:36: error: ‘itr’ was not declared in this scope
+silo.cc:64:12: error: ‘class TidWord’ has no member named ‘obj’
+   expected.obj = __atomic_load_n(&(Row[(*itr).tuple.key].tidw.obj), __ATOMIC_ACQUIRE);
+            ^
+silo.cc:64:85: error: incompatible type for argument 1 of ‘__atomic_load_n’
+   expected.obj = __atomic_load_n(&(Row[(*itr).tuple.key].tidw.obj), __ATOMIC_ACQUIRE);
+                                                                                     ^
+silo.cc:67:63: error: ‘class TidWord’ has no member named ‘obj’
+   __atomic_store_n(&(Row[(*itr).tuple.key].tidw.obj), desired.obj, __ATOMIC_RELEASE);
+                                                               ^
+silo.cc:67:84: error: incompatible type for argument 1 of ‘__atomic_store_n’
+   __atomic_store_n(&(Row[(*itr).tuple.key].tidw.obj), desired.obj, __ATOMIC_RELEASE);
+                                                                                    ^
+silo.cc: In function ‘void writePhase(std::vector<ROW_SILO>, TidWord, TidWord, int, std::vector<ROW_SILO>, std::vector<ROW_SILO>)’:
+silo.cc:84:8: error: ‘class TidWord’ has no member named ‘tid’
+  tid_a.tid++;
+        ^
+silo.cc:89:8: error: ‘class TidWord’ has no member named ‘tid’
+  tid_b.tid++;
+        ^
+silo.cc:92:8: error: ‘class TidWord’ has no member named ‘epoch’
+  tid_c.epoch = ThLocalEpoch[thid];
+        ^
+silo.cc:95:23: warning: extended initializer lists only available with -std=c++11 or -std=gnu++11
+  TidWord maxtid = max({tid_a, tid_b, tid_c});
+                       ^
+silo.cc:95:44: error: no matching function for call to ‘max(<brace-enclosed initializer list>)’
+  TidWord maxtid = max({tid_a, tid_b, tid_c});
+                                            ^
+In file included from /usr/include/c++/5/bits/char_traits.h:39:0,
+                 from /usr/include/c++/5/ios:40,
+                 from /usr/include/c++/5/ostream:38,
+                 from /usr/include/c++/5/iostream:39,
+                 from concurrency.h:7,
+                 from silo.cc:1:
+/usr/include/c++/5/bits/stl_algobase.h:219:5: note: candidate: template<class _Tp> const _Tp& std::max(const _Tp&, const _Tp&)
+     max(const _Tp& __a, const _Tp& __b)
+     ^
+/usr/include/c++/5/bits/stl_algobase.h:219:5: note:   template argument deduction/substitution failed:
+silo.cc:95:44: note:   candidate expects 2 arguments, 1 provided
+  TidWord maxtid = max({tid_a, tid_b, tid_c});
+                                            ^
+In file included from /usr/include/c++/5/bits/char_traits.h:39:0,
+                 from /usr/include/c++/5/ios:40,
+                 from /usr/include/c++/5/ostream:38,
+                 from /usr/include/c++/5/iostream:39,
+                 from concurrency.h:7,
+                 from silo.cc:1:
+/usr/include/c++/5/bits/stl_algobase.h:265:5: note: candidate: template<class _Tp, class _Compare> const _Tp& std::max(const _Tp&, const _Tp&, _Compare)
+     max(const _Tp& __a, const _Tp& __b, _Compare __comp)
+     ^
+/usr/include/c++/5/bits/stl_algobase.h:265:5: note:   template argument deduction/substitution failed:
+silo.cc:95:44: note:   candidate expects 3 arguments, 1 provided
+  TidWord maxtid = max({tid_a, tid_b, tid_c});
+                                            ^
+silo.cc:101:12: error: ‘itr’ does not name a type
+  for (auto itr = writeSet.begin(); itr != writeSet.end(); ++itr) {
+            ^
+silo.cc:101:36: error: expected ‘;’ before ‘itr’
+  for (auto itr = writeSet.begin(); itr != writeSet.end(); ++itr) {
+                                    ^
+silo.cc:101:36: error: ‘itr’ was not declared in this scope
+silo.cc:104:62: error: ‘class TidWord’ has no member named ‘obj’
+   __atomic_store_n(&(Row[(*itr).tuple.key].tidw.obj), maxtid.obj, __ATOMIC_RELEASE);
+                                                              ^
+silo.cc:104:83: error: incompatible type for argument 1 of ‘__atomic_store_n’
+   __atomic_store_n(&(Row[(*itr).tuple.key].tidw.obj), maxtid.obj, __ATOMIC_RELEASE);
+                                                                                   ^
+silo.cc: In function ‘void* epocher(void*)’:
+silo.cc:202:9: error: ‘nullptr’ was not declared in this scope
+  return nullptr;
+         ^
+silo.cc: In function ‘void* worker(void*)’:
+silo.cc:276:15: error: ‘itr’ does not name a type
+     for (auto itr = lockList.begin(); itr != lockList.end(); itr++) {
+               ^
+silo.cc:276:39: error: expected ‘;’ before ‘itr’
+     for (auto itr = lockList.begin(); itr != lockList.end(); itr++) {
+                                       ^
+silo.cc:276:39: error: ‘itr’ was not declared in this scope
+silo.cc:279:16: error: ‘class TidWord’ has no member named ‘obj’
+       expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                ^
+silo.cc:279:50: error: ‘class TidWord’ has no member named ‘obj’
+       expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                                                  ^
+silo.cc:279:72: error: incompatible type for argument 1 of ‘__atomic_load_n’
+       expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                                                                        ^
+silo.cc:282:20: error: ‘class TidWord’ has no member named ‘obj’
+           expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                    ^
+silo.cc:282:54: error: ‘class TidWord’ has no member named ‘obj’
+           expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                                                      ^
+silo.cc:282:76: error: incompatible type for argument 1 of ‘__atomic_load_n’
+           expected.obj = __atomic_load_n(&(row->tidw.obj), __ATOMIC_ACQUIRE);
+                                                                            ^
+silo.cc:286:55: error: ‘class TidWord’ has no member named ‘obj’
+           if (__atomic_compare_exchange_n(&(row->tidw.obj), &(expected.obj), desired.obj, false, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) break;
+                                                       ^
+silo.cc:286:72: error: ‘class TidWord’ has no member named ‘obj’
+           if (__atomic_compare_exchange_n(&(row->tidw.obj), &(expected.obj), desired.obj, false, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) break;
+                                                                        ^
+silo.cc:286:86: error: ‘class TidWord’ has no member named ‘obj’
+           if (__atomic_compare_exchange_n(&(row->tidw.obj), &(expected.obj), desired.obj, false, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) break;
+                                                                                      ^
+silo.cc:286:132: error: incompatible type for argument 1 of ‘__atomic_compare_exchange_n’
+           if (__atomic_compare_exchange_n(&(row->tidw.obj), &(expected.obj), desired.obj, false, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) break;
+                                                                                                                                    ^
+silo.cc:298:15: error: ‘itr’ does not name a type
+     for (auto itr = readSet.begin(); itr != readSet.end(); ++itr) {
+               ^
+silo.cc:298:38: error: expected ‘;’ before ‘itr’
+     for (auto itr = readSet.begin(); itr != readSet.end(); ++itr) {
+                                      ^
+silo.cc:298:38: error: ‘itr’ was not declared in this scope
+silo.cc:300:13: error: ‘class TidWord’ has no member named ‘obj’
+       check.obj = __atomic_load_n(&(Row[(*itr).tuple.key].tidw.obj), __ATOMIC_ACQUIRE);
+             ^
+silo.cc:300:86: error: incompatible type for argument 1 of ‘__atomic_load_n’
+       check.obj = __atomic_load_n(&(Row[(*itr).tuple.key].tidw.obj), __ATOMIC_ACQUIRE);
+                                                                                      ^
+silo.cc:301:38: error: ‘class TidWord’ has no member named ‘epoch’
+       if ((*itr).tidw.epoch != check.epoch || (*itr).tidw.tid != check.tid) {
+                                      ^
+silo.cc:301:72: error: ‘class TidWord’ has no member named ‘tid’
+       if ((*itr).tidw.epoch != check.epoch || (*itr).tidw.tid != check.tid) {
+                                                                        ^
+In file included from lib.cc:1:0:
+concurrency.h:26:3: error: ‘uint64_t’ does not name a type
+   uint64_t obj;
+   ^
+concurrency.h:31:4: error: ‘uint64_t’ does not name a type
+    uint64_t tid:29;
+    ^
+concurrency.h:32:4: error: ‘uint64_t’ does not name a type
+    uint64_t epoch:32;
+    ^
+concurrency.h: In constructor ‘TidWord::TidWord()’:
+concurrency.h:37:3: error: ‘obj’ was not declared in this scope
+   obj = 0;
+   ^
+concurrency.h: In member function ‘bool TidWord::operator==(const TidWord&) const’:
+concurrency.h:41:10: error: ‘obj’ was not declared in this scope
+   return obj == right.obj;
+          ^
+concurrency.h:41:23: error: ‘const class TidWord’ has no member named ‘obj’
+   return obj == right.obj;
+                       ^
+concurrency.h: In member function ‘bool TidWord::operator<(const TidWord&) const’:
+concurrency.h:49:16: error: ‘const class TidWord’ has no member named ‘obj’
+   return this->obj < right.obj;
+                ^
+concurrency.h:49:28: error: ‘const class TidWord’ has no member named ‘obj’
+   return this->obj < right.obj;
+                            ^
+concurrency.h: At global scope:
+concurrency.h:79:3: error: ‘uint64_t’ does not name a type
+   uint64_t tidw; // tidword
+   ^
+concurrency.h:86:3: error: ‘uint64_t’ does not name a type
+   uint64_t epoch;
+   ^
+Makefile:15: ターゲット 'silo' のレシピで失敗しました
+make: *** [silo] エラー 1
