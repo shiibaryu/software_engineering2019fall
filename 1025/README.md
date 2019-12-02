@@ -12,5 +12,5 @@ Key: 2 <br>
 Key:32 <br>
 [[1 2]23[23 32 32]] <br>
 
-But, I couldn't one bug (segmentation fault)
+
 
