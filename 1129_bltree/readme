@@ -1,0 +1,4 @@
+#trial = 10000
+38907.542u 16385.938s 6:25:05.59 239.3% 0+0k 8+0io 0pf+0w
+
+Atomic operations are not required for b-link-tree.
